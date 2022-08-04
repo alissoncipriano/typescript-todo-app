@@ -1,9 +1,9 @@
-#typescript-todo-app
+# typescript-todo-app
 
 Simple todo list app made on React using TypeScript. Studying purposes only.
 
 
-##Useful links
+## Useful links
 
 [Setup TypeScript with React](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup/)
 [TypeScript Tutorial for JS Programmers Who Know How to Build a Todo App](https://ts.chibicode.com/todo/)
