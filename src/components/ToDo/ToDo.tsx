@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { Todo, CompletedTodo } from '../../types';
 
 const toDoList = [
-  { id: 1, text: "Learn TypeScript", done: false },
-  { id: 2, text: "Learn React", done: false }
+  { id: 1, text: "Learn TypeScript", done: false, place: "home" },
+  { id: 2, text: "Learn React", done: false, place: "work" }
 ]
 
 export default function ToDo() {
@@ -32,12 +32,26 @@ export default function ToDo() {
     }));
   }
 
+  function placeToString(place: string): string {
+    if (place === 'home') {
+      return '🏡 Home'
+    } else if (place === 'work') {
+      return '💻 Work'
+    } else {
+      return '📌 ' + place
+    }
+  }
+
   return (
     <div className='ToDo'>
       <ul className='ToDo-list'>
         {
           toDos?.map(todo => (
-            <TodoItem item={ todo } toggleTodo={ toggleTodo } key={ todo.id } />
+            <TodoItem
+              item={ todo }
+              toggleTodo={ toggleTodo }
+              placeToString={ placeToString }
+              key={ todo.id } />
           ))
         }
       </ul>
