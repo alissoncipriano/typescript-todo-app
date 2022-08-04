@@ -1,0 +1,12 @@
+.ToDo {
+  width: 300px;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 2px solid #FFD4C6;
+}
+.ToDo .ToDo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
