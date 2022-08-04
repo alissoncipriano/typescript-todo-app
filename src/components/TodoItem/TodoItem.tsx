@@ -9,7 +9,12 @@ interface TodoItemProps {
 const TodoItem = ({ item, toggleTodo }: TodoItemProps) => {
   return (
     <li className='TodoItem'>
-      <input type='checkbox' id={`item_${item.id}`} defaultChecked={item.done} onChange={() => toggleTodo(item)} />
+      <input type='checkbox'
+        id={`item_${item.id}`}
+        onChange={() => toggleTodo(item)}
+        checked={ item.done }
+      />
+
       <label htmlFor={`item_${item.id}`}>{ item.text }</label>
     </li>
   )

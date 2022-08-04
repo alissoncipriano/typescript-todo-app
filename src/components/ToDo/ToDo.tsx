@@ -1,7 +1,7 @@
 import './ToDo.css';
 import { TodoItem } from '../TodoItem/TodoItem';
 import { useState } from 'react';
-import { Todo } from '../../types';
+import { Todo, CompletedTodo } from '../../types';
 
 const toDoList = [
   { id: 1, text: "Learn TypeScript", done: false },
@@ -11,7 +11,7 @@ const toDoList = [
 export default function ToDo() {
   const [toDos, setToDos] = useState<Todo[]>(toDoList);
 
-  const toggleTodo = (todo: Todo): void => { 
+  const toggleTodo = (todo: Todo): void => {
     const newList = toDos.map(listItem => {
       // 👇️ if id equals 2, update country property
       if (listItem.id === todo.id) {
@@ -25,6 +25,13 @@ export default function ToDo() {
     setToDos(newList);
   }
 
+  function completeAll (todos: readonly Todo[]): CompletedTodo[] {
+    return todos.map(todo => ({
+      ...todo,
+      done: true
+    }));
+  }
+
   return (
     <div className='ToDo'>
       <ul className='ToDo-list'>
@@ -34,6 +41,13 @@ export default function ToDo() {
           ))
         }
       </ul>
+
+      <button
+        className='ToDo-button'
+        onClick={() => setToDos(completeAll(toDos))}
+      >
+        Marcar todas como completas
+      </button>
     </div>
   )
 }
