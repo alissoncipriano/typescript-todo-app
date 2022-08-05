@@ -24,3 +24,37 @@
   color: #5c451f;
   background-color: #3321040f;
 }
+.ToDo-add {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 65px;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: #fbf7f6;
+  border: 1px solid #eadfdb;
+  border-radius: 10px;
+  color: #8a7872;
+  opacity: .8;
+  transition: .1s all ease-in-out;
+  cursor: pointer;
+}
+.ToDo-add:hover {
+  opacity: 1;
+  background-color: #f8f4f3;
+  border-color: #eadfdb;
+  color: #511c0f;
+}
+.ToDo-add span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  border: 2px solid #d2d2d2;
+  font-weight: 800;
+  border-radius: 5px;
+  background-color: #d2d2d2;
+  color: #fbf8f7;
+  font-size: 1.5em;
+  padding: 1px 9px 3px 9px;
+}

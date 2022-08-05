@@ -2,6 +2,7 @@ import './ToDo.css';
 import { TodoItem } from '../TodoItem/TodoItem';
 import { useEffect, useState } from 'react';
 import { Todo, CompletedTodo, List } from '../../consts/types';
+import AddTask from '../AddTask/AddTask';
 
 const toDoList = [
   { id: 1, text: "Learn TypeScript", done: false, place: "home" },
@@ -10,6 +11,7 @@ const toDoList = [
 
 export default function ToDo() {
   const [list, setList] = useState<List>({ items: toDoList, completed: false });
+  const [path, setPath] = useState<string>('');
 
   const toggleTodo = (todo: Todo): void => {
     const newList = list.items.map(listItem => {
@@ -67,6 +69,21 @@ export default function ToDo() {
     }
   }
 
+  const toggleShowAddTask = (): void => {
+    setPath('');
+  }
+
+  const handleTaskAdd = (text: string, place: any, done: boolean): void => {
+    let oldList = list;
+    let newList = oldList;
+
+    const newItemID = newList.items[newList.items.length - 1].id + 1;
+
+    newList.items.push({id: newItemID, text: text, done: done, place: place.value});
+    setList(newList);
+    toggleShowAddTask();
+  }
+
   return (
     <div className='ToDo'>
       <ul className='ToDo-list'>
@@ -88,6 +105,18 @@ export default function ToDo() {
         {list.completed && 'Marcar todas como incompletas'}
         {!list.completed && 'Marcar todas como completas'}
       </button>
+
+      <div
+        className='ToDo-add'
+        onClick={() => setPath('newTask')}
+      >
+        <span>+</span> Adicionar nova task
+      </div>
+
+      {
+        path === 'newTask' &&
+        <AddTask toggleShow={toggleShowAddTask} addTask={handleTaskAdd} />
+      }
     </div>
   )
 }

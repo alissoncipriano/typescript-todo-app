@@ -7,8 +7,10 @@
   height: 100vh;
   background-color: #FEF5DD;
 }
-
 .App h1 {
-  color: #511c0f;
   margin-top: -5em;
+}
+.App h1,
+.App h2 {
+  color: #511c0f;
 }

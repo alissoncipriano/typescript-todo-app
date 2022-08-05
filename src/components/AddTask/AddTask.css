@@ -1,0 +1,132 @@
+.AddTask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #b3ada09e;
+  backdrop-filter: blur(1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.AddTask-window {
+  min-width: 300px;
+  min-height: 500px;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 2px solid #FFD4C6;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.AddTask-window h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #f7f2e8;
+  border: 1px solid #f4d4cc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.AddTask-window h2 span {
+  margin-left: 10px;
+  font-size: 1.5em;
+  margin-top: -5px;
+}
+.AddTask-inputText {
+  width: 100%;
+  margin-top: 25px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.AddTask-inputText label {
+  position: absolute;
+  z-index: 1;
+  top: 14px;
+  left: 5%;
+  color: #957d75;
+  cursor: pointer;
+  transition: .2s all ease-in-out;
+}
+.AddTask-inputText input {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: #fbf7f6;
+  border: 1px solid #eadfdb;
+  border-radius: 10px;
+  color: #42312b;
+  opacity: .8;
+  transition: .1s all ease-in-out;
+  cursor: pointer;
+}
+.AddTask-inputText input:focus{
+    outline: none;
+}
+.AddTask-inputText.selected > label:nth-child(1) {
+  transform: translateY(-25px);
+  color: #4f3c36;
+}
+.AddTask-inputCheck {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 25px;
+  align-self: flex-start;
+}
+.AddTask-inputCheck input,
+.AddTask-inputCheck label {
+  cursor: pointer;
+}
+.AddTask-inputCheck label {
+  margin-left: 5px;
+}
+.AddTask-inputSelect {
+  width: 98%;
+  text-align: start;
+  margin-top: 25px;
+}
+.AddTask-selector {
+  margin-top: 10px;
+}
+.AddTask-selector.css-b62m3t-container div.css-1s2u09g-control {
+  background-color: hsl(15, 33.3%, 97.6%);
+  border-color: hsl(15, 26.1%, 91%);
+  cursor: pointer;
+}
+.AddTask-button {
+  display: flex;
+  align-items: center;
+  width: 84%;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid #dbc1b8;
+  border-radius: 10px;
+  color: #866257;
+  opacity: .8;
+  transition: .1s all ease-in-out;
+  cursor: pointer;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1em;
+  position: absolute;
+}
+.AddTask-add {
+  background-color: #f9dfd8;
+  bottom: 100px;
+}
+.AddTask-cancel {
+  background-color: #fff;
+  bottom: 30px;
+}
+.AddTask-button:hover {
+    opacity: 1;
+}
