@@ -19,3 +19,11 @@
 .TodoItem label {
   cursor: pointer;
 }
+.TodoItem-place {
+  padding: 10px;
+  border-radius: 7px;
+  border: 2px solid #f0d3ca;
+  display: block;
+  margin-left: 40px;
+  background-color: #fbf7f6;
+}

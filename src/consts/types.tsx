@@ -1,4 +1,4 @@
-export interface Todo {
+export type Todo = {
   id: number
   text: string
   done: boolean
@@ -6,4 +6,8 @@ export interface Todo {
 }
 export type CompletedTodo = Todo & {
   readonly done: true
+}
+export type List = {
+  items: Todo[]
+  completed: boolean
 }
