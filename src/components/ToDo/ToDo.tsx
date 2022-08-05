@@ -1,13 +1,12 @@
 import './ToDo.css';
 import { TodoItem } from '../TodoItem/TodoItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Todo, CompletedTodo, List } from '../../consts/types';
 
 const toDoList = [
   { id: 1, text: "Learn TypeScript", done: false, place: "home" },
   { id: 2, text: "Learn React", done: false, place: "work" }
 ]
-
 
 export default function ToDo() {
   const [list, setList] = useState<List>({ items: toDoList, completed: false });
@@ -23,7 +22,26 @@ export default function ToDo() {
       return listItem;
     });
 
-    setList({ ...list, items: newList });
+    const checks = newList.map(item => item.done);
+    let allEqual: boolean = true;
+
+    for (let i = 0; i < checks.length; i++) {
+      for (let k = i + 1; k < checks.length; k++) {
+          if (checks[i] != checks[k]) {
+            allEqual = false;
+          }
+      }
+    }
+
+    if (allEqual && newList[0].done === true) {
+      setList({ completed: true, items: newList });
+    }
+    else if (allEqual && newList[0].done === false) {
+      setList({ completed: false, items: newList });
+    }
+    else if (!allEqual) {
+      setList({ completed: false, items: newList });
+    }
   }
 
   function handleComplete (todos: readonly Todo[], action: 'check' | 'uncheck'): CompletedTodo[] | Todo[] {
