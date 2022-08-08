@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './AddTask.css';
-import { Place, places } from '../../consts/types';
+import { places } from '../../commons/types';
 import CreatableSelect from 'react-select/creatable';
 
 interface AddTaskProps {
@@ -12,20 +12,26 @@ export default function AddTask({ toggleShow, addTask }: AddTaskProps) {
   const [selected, setSelected] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [local, setLocal] = useState<string>('');
+  const [checked, setChecked] = useState<boolean>(false);
 
   const handleFocusEvent = (e: React.FocusEvent<HTMLInputElement>) => {
     setSelected(true);
-  };
+  }
+
+  const handleBlurEvent = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (name.length === 0) setSelected(false);
+  }
 
   const handleSelectorChange = (value: any) => {
     setLocal(value);
   }
 
-  const handleBlurEvent = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (name.length <= 0) setSelected(false);
-  };
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
+  }
+
+  const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
   }
 
   return (
@@ -35,16 +41,24 @@ export default function AddTask({ toggleShow, addTask }: AddTaskProps) {
     
         <div className={`AddTask-inputText ${selected ? 'selected' : ''}`}>
           <label htmlFor="nome">Nome da task:</label>
-          <input type="text" id="nome" value={name} onChange={handleNameChange} onFocus={handleFocusEvent} onBlur={handleBlurEvent} />
+          <input
+            type="text"
+            id="nome"
+            value={name}
+            onChange={handleNameChange}
+            onFocus={handleFocusEvent}
+            onBlur={handleBlurEvent}
+        />
         </div>
 
         <div className='AddTask-inputCheck'>
-          <input type="checkbox" id="check" />
+          <input type="checkbox" id="check" onChange={handleCheckChange} />
           <label htmlFor='check'>Completa</label>
         </div>
 
         <div className='AddTask-inputSelect'>
           <label htmlFor='check'>Local de realização da task:</label>
+
           <CreatableSelect
               isClearable
               onChange={(value) => handleSelectorChange(value)}
@@ -54,7 +68,8 @@ export default function AddTask({ toggleShow, addTask }: AddTaskProps) {
 
         <button
           className='AddTask-button AddTask-add'
-          onClick={() => addTask(name, local, selected)}
+          onClick={() => addTask(name, local, checked)}
+          disabled={ name.length > 0 ? false : true }
         >
           Adicionar
         </button>

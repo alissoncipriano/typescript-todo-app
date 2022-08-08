@@ -1,5 +1,5 @@
 import './TodoItem.css';
-import { Todo } from '../../consts/types';
+import { Todo } from '../../commons/types';
 
 interface TodoItemProps {
   item: Todo

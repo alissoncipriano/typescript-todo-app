@@ -1,36 +1,33 @@
 import './ToDo.css';
 import { TodoItem } from '../TodoItem/TodoItem';
-import { useEffect, useState } from 'react';
-import { Todo, CompletedTodo, List } from '../../consts/types';
+import { useState } from 'react';
+import { Todo, CompletedTodo, List, toDoList } from '../../commons/types';
 import AddTask from '../AddTask/AddTask';
-
-const toDoList = [
-  { id: 1, text: "Learn TypeScript", done: false, place: "home" },
-  { id: 2, text: "Learn React", done: false, place: "work" }
-]
 
 export default function ToDo() {
   const [list, setList] = useState<List>({ items: toDoList, completed: false });
   const [path, setPath] = useState<string>('');
 
   const toggleTodo = (todo: Todo): void => {
+    // Muda apenas o done do item clicado
     const newList = list.items.map(listItem => {
-      // 👇️ if id equals 2, update country property
       if (listItem.id === todo.id) {
         return {...listItem, done: !todo.done}
       }
 
-      // 👇️ otherwise return object as is
       return listItem;
     });
 
+    // Recebe somente a prop done de todos os itens da lista
     const checks = newList.map(item => item.done);
+
     let allEqual: boolean = true;
 
     for (let i = 0; i < checks.length; i++) {
       for (let k = i + 1; k < checks.length; k++) {
-          if (checks[i] != checks[k]) {
+          if (checks[i] !== checks[k]) {
             allEqual = false;
+            break;
           }
       }
     }
@@ -46,13 +43,14 @@ export default function ToDo() {
     }
   }
 
-  function handleComplete (todos: readonly Todo[], action: 'check' | 'uncheck'): CompletedTodo[] | Todo[] {
-    if (action === 'check') 
-      return todos.map(todo => ({
-        ...todo,
-        done: true
-      }));
-      
+  function checkAll (todos: readonly Todo[]): CompletedTodo[] {
+    return todos.map(todo => ({
+      ...todo,
+      done: true
+    }));
+  }
+
+  function uncheckAll (todos: readonly Todo[]): Todo[] {
     return todos.map(todo => ({
       ...todo,
       done: false
@@ -74,8 +72,7 @@ export default function ToDo() {
   }
 
   const handleTaskAdd = (text: string, place: any, done: boolean): void => {
-    let oldList = list;
-    let newList = oldList;
+    let newList = list;
 
     const newItemID = newList.items[newList.items.length - 1].id + 1;
 
@@ -100,7 +97,7 @@ export default function ToDo() {
 
       <button
         className='ToDo-button'
-        onClick={() => list.completed ? setList({ items: handleComplete(list.items, 'uncheck'), completed: !list.completed }) : setList({ items: handleComplete(list.items, 'check'), completed: !list.completed })}
+        onClick={() => list.completed ? setList({ items: uncheckAll(list.items), completed: !list.completed }) : setList({ items: checkAll(list.items), completed: !list.completed })}
       >
         {list.completed && 'Marcar todas como incompletas'}
         {!list.completed && 'Marcar todas como completas'}

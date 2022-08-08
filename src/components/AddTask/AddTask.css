@@ -123,6 +123,11 @@
   background-color: #f9dfd8;
   bottom: 100px;
 }
+.AddTask-add:disabled {
+  cursor: inherit;
+  pointer-events: none;
+  opacity: .5;
+}
 .AddTask-cancel {
   background-color: #fff;
   bottom: 30px;
