@@ -34,52 +34,70 @@ export default function AddTask({ toggleShow, addTask }: AddTaskProps) {
     setChecked(e.target.checked);
   }
 
+  const handleTaskAdd = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    addTask(name, local, checked);
+  }
+
   return (
-    <div className='AddTask'>
+    <div className='AddTask' data-testid='AddTask'>
       <div className='AddTask-window'>
         <h2>Adicionar task <span>+</span></h2>
-    
-        <div className={`AddTask-inputText ${selected ? 'selected' : ''}`}>
-          <label htmlFor="nome">Nome da task:</label>
-          <input
-            type="text"
-            id="nome"
-            value={name}
-            onChange={handleNameChange}
-            onFocus={handleFocusEvent}
-            onBlur={handleBlurEvent}
-        />
-        </div>
+        <form
+          onSubmit={(e) => handleTaskAdd(e)}
+          data-testid="AddTask-form"
+          className='AddTask-form' >
+          <div className={`AddTask-inputText ${selected ? 'selected' : ''}`}>
+            <label htmlFor="nome">Nome da task:</label>
 
-        <div className='AddTask-inputCheck'>
-          <input type="checkbox" id="check" onChange={handleCheckChange} />
-          <label htmlFor='check'>Completa</label>
-        </div>
+            <input
+              type="text"
+              id="nome"
+              name='nome'
+              value={name}
+              maxLength={25}
+              onChange={handleNameChange}
+              onFocus={handleFocusEvent}
+              onBlur={handleBlurEvent} />
+          </div>
 
-        <div className='AddTask-inputSelect'>
-          <label htmlFor='check'>Local de realização da task:</label>
+          <div className='AddTask-inputCheck'>
+            <input
+              type="checkbox"
+              id="check"
+              data-testid='AddTask-check'
+              name='check'
+              onChange={handleCheckChange} />
 
-          <CreatableSelect
+            <label htmlFor='check'>Completa</label>
+          </div>
+
+          <div className='AddTask-inputSelect'>
+            <label htmlFor='local'>Local de realização da task:</label>
+
+            <CreatableSelect
               isClearable
+              inputId='local'
               onChange={(value) => handleSelectorChange(value)}
               options={places}
-              className='AddTask-selector' />
-        </div>
+              name='local'
+              className='AddTask-selector'
+              classNamePrefix='list' />
+          </div>
 
-        <button
-          className='AddTask-button AddTask-add'
-          onClick={() => addTask(name, local, checked)}
-          disabled={ name.length > 0 ? false : true }
-        >
-          Adicionar
-        </button>
-        
-        <button
-          className='AddTask-button AddTask-cancel'
-          onClick={toggleShow}
-        >
-          Cancelar
-        </button>
+          <button
+            type='submit'
+            className='AddTask-button AddTask-add'
+            disabled={ name.length > 0 ? false : true }>
+            Adicionar
+          </button>
+
+          <button
+            className='AddTask-button AddTask-cancel'
+            onClick={toggleShow}>
+            Cancelar
+          </button>
+        </form>
       </div>
     </div>
   )
