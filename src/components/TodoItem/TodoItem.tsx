@@ -1,29 +1,27 @@
-import './TodoItem.css';
 import { Todo } from '../../commons/types';
+import { StyledTodoItem } from './styles';
 
 interface TodoItemProps {
-  item: Todo
-  toggleTodo: (item: Todo) => void
-  placeToString: (place: string) => string
+  item: Todo;
+  toggleTodo: (item: Todo) => void;
+  placeToString: (place: string) => string;
 }
 
 const TodoItem = ({ item, toggleTodo, placeToString }: TodoItemProps) => {
   return (
-    <li className='TodoItem'>
-      <input type='checkbox'
+    <StyledTodoItem>
+      <input
+        type='checkbox'
         id={`item_${item.id}`}
         onChange={() => toggleTodo(item)}
-        checked={ item.done }
+        checked={item.done}
       />
 
-      <label htmlFor={`item_${item.id}`}>{ item.text }</label>
+      <label htmlFor={`item_${item.id}`}>{item.text}</label>
 
-      {
-        item.place &&
-        <span className='TodoItem-place'>{ placeToString(item.place) }</span>
-      }
-    </li>
-  )
-}
+      {item.place && <span>{placeToString(item.place)}</span>}
+    </StyledTodoItem>
+  );
+};
 
 export { TodoItem };
