@@ -2,16 +2,17 @@ import styled from 'styled-components';
 
 export const StyledTodoItem = styled.li`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   cursor: pointer;
 
   &:not(:first-child) {
-    margin-top: 10px;
+    margin-top: 22px;
   }
 
   input {
     transform: scale(1.2);
+    margin-top: 8px;
   }
 
   label {

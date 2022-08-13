@@ -2,15 +2,28 @@ import styled from 'styled-components';
 
 export const StyledToDo = styled.div`
   min-width: 370px;
+  max-width: 520px;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 10px;
   border: 2px solid #ffd4c6;
 
+  div:not(.ToDo-add) {
+    justify-content: center;
+  }
+
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    padding-right: 20px;
+    padding-top: 18px;
+    max-height: 28vh;
+    overflow-y: auto;
+
+    label {
+      text-align: start;
+    }
   }
 
   button {
@@ -41,7 +54,7 @@ export const StyledToDo = styled.div`
     border-radius: 10px;
     color: #8a7872;
     opacity: 0.8;
-    transition: 0.1s all ease-in-out;
+    transition: 0.5s margin ease-in-out;
     cursor: pointer;
 
     &:hover {
@@ -64,5 +77,9 @@ export const StyledToDo = styled.div`
       font-size: 1.5em;
       padding: 1px 9px 3px 9px;
     }
+  }
+
+  &.loading .ToDo-add {
+    margin-top: 0;
   }
 `;

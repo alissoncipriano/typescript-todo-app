@@ -17,7 +17,7 @@ const TodoItem = ({ item, toggleTodo, placeToString }: TodoItemProps) => {
         checked={item.done}
       />
 
-      <label htmlFor={`item_${item.id}`}>{item.text}</label>
+      <label htmlFor={`item_${item.id}`}>{item.title}</label>
 
       {item.place && <span>{placeToString(item.place)}</span>}
     </StyledTodoItem>
