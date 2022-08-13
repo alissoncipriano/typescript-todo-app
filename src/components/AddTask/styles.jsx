@@ -44,7 +44,6 @@ export const StyledAddTask = styled.div`
 
     form {
       min-width: 300px;
-      min-height: 500px;
       display: flex;
       flex-direction: column;
       align-items: center;

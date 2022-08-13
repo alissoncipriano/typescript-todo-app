@@ -5,10 +5,15 @@ import { Todo, CompletedTodo, List, toDoList } from '../../commons/types';
 import AddTask from '../AddTask/AddTask';
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
 
-export default function ToDo() {
-  const [list, setList] = useState<List>({ items: [], completed: false });
-  const [path, setPath] = useState<string>('');
+interface ToDoProps {
+  list: List;
+  updateList: (newList: List) => void;
+}
+
+export default function ToDo({ list, updateList }: ToDoProps) {
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchToDos = async () => {
@@ -17,13 +22,15 @@ export default function ToDo() {
           'https://jsonplaceholder.typicode.com/todos/'
         );
 
+        // navigate('../success');
+
         setTimeout(
-          () => setList({ items: response.data, completed: false }),
+          () => updateList({ items: response.data, completed: false }),
           1000
         );
       } catch (error) {
         console.log(error);
-        setList({ items: toDoList, completed: false });
+        updateList({ items: toDoList, completed: false });
       }
     };
 
@@ -55,11 +62,11 @@ export default function ToDo() {
     }
 
     if (allEqual && newList[0].done === true) {
-      setList({ completed: true, items: newList });
+      updateList({ completed: true, items: newList });
     } else if (allEqual && newList[0].done === false) {
-      setList({ completed: false, items: newList });
+      updateList({ completed: false, items: newList });
     } else if (!allEqual) {
-      setList({ completed: false, items: newList });
+      updateList({ completed: false, items: newList });
     }
   };
 
@@ -87,25 +94,6 @@ export default function ToDo() {
     }
   }
 
-  const toggleShowAddTask = (): void => {
-    setPath('');
-  };
-
-  const handleTaskAdd = (text: string, place: any, done: boolean): void => {
-    let newList = list;
-
-    const newItemID = newList.items[newList.items.length - 1].id + 1;
-
-    newList.items.push({
-      id: newItemID,
-      title: text,
-      done: done,
-      place: place.value,
-    });
-    setList(newList);
-    toggleShowAddTask();
-  };
-
   return (
     <StyledToDo className={`${list.items.length === 0 && 'loading'}`}>
       {list.items.length > 0 ? (
@@ -124,11 +112,11 @@ export default function ToDo() {
           <button
             onClick={() =>
               list.completed
-                ? setList({
+                ? updateList({
                     items: uncheckAll(list.items),
                     completed: !list.completed,
                   })
-                : setList({
+                : updateList({
                     items: checkAll(list.items),
                     completed: !list.completed,
                   })
@@ -142,13 +130,9 @@ export default function ToDo() {
         <ThreeDots color='#ffd4c6' height={80} width={80} />
       )}
 
-      <div className='ToDo-add' onClick={() => setPath('newTask')}>
+      <div className='ToDo-add' onClick={() => navigate('/home/add-task')}>
         <span>+</span> Adicionar nova task
       </div>
-
-      {path === 'newTask' && (
-        <AddTask toggleShow={toggleShowAddTask} addTask={handleTaskAdd} />
-      )}
     </StyledToDo>
   );
 }

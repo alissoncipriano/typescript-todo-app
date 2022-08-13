@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { places } from '../../commons/types';
 import CreatableSelect from 'react-select/creatable';
 import { StyledAddTask } from './styles';
+import { useNavigate } from 'react-router-dom';
 
 interface AddTaskProps {
-  toggleShow: () => void;
   addTask: (text: string, place: string, done: boolean) => void;
 }
 
-export default function AddTask({ toggleShow, addTask }: AddTaskProps) {
+export default function AddTask({ addTask }: AddTaskProps) {
   const [selected, setSelected] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [local, setLocal] = useState<string>('');
   const [checked, setChecked] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const handleFocusEvent = (e: React.FocusEvent<HTMLInputElement>) => {
     setSelected(true);
@@ -37,6 +39,7 @@ export default function AddTask({ toggleShow, addTask }: AddTaskProps) {
   const handleTaskAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addTask(name, local, checked);
+    navigate('/home');
   };
 
   return (
@@ -95,7 +98,7 @@ export default function AddTask({ toggleShow, addTask }: AddTaskProps) {
             Adicionar
           </button>
 
-          <button className='AddTask-cancel' onClick={toggleShow}>
+          <button className='AddTask-cancel' onClick={() => navigate('/home')}>
             Cancelar
           </button>
         </form>
