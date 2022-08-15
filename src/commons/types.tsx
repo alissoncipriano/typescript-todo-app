@@ -3,6 +3,7 @@ export interface Todo {
   title: string;
   done: boolean;
   place?: string;
+  description?: string;
 }
 
 export type CompletedTodo = Todo & {
