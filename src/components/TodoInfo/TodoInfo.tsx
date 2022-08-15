@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { places } from '../../commons/types';
 import { useNavigate, useParams } from 'react-router-dom';
-import { List, Todo, toDoList } from '../../commons/types';
+import { List, Todo } from '../../commons/types';
 import CreatableSelect from 'react-select/creatable';
 import { StyledTodoInfo } from './styles';
 import { useRef } from 'react';
@@ -22,7 +22,7 @@ export const TodoInfo = ({
   const [item, setItem] = useState<Todo>({
     id: -1,
     title: '',
-    done: false,
+    completed: false,
     place: '',
   });
 
@@ -44,10 +44,6 @@ export const TodoInfo = ({
       let _item = response.data.filter(
         (x: { id: number }) => x.id === itemID
       )[0];
-
-      delete Object.assign(_item, { ['done']: _item['completed'] })[
-        'completed'
-      ];
 
       setItem(_item);
       delete _item.userId;
@@ -72,7 +68,7 @@ export const TodoInfo = ({
 
   const handleDoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newItem = item;
-    newItem.done = e.target.checked;
+    newItem.completed = e.target.checked;
 
     toggleTodo(item);
   };
@@ -170,7 +166,7 @@ export const TodoInfo = ({
                 type='checkbox'
                 id='check'
                 name='check'
-                defaultChecked={item.done}
+                defaultChecked={item.completed}
                 onChange={(e) => handleDoneChange(e)}
               />
 

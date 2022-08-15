@@ -30,7 +30,11 @@ export const AppRoutes = () => {
     setList(newList);
   };
 
-  const handleTaskAdd = (text: string, place: any, done: boolean): void => {
+  const handleTaskAdd = (
+    text: string,
+    place: any,
+    completed: boolean
+  ): void => {
     let newList = list;
 
     const newItemID = newList.items[newList.items.length - 1].id + 1;
@@ -38,7 +42,7 @@ export const AppRoutes = () => {
     newList.items.push({
       id: newItemID,
       title: text,
-      done: done,
+      completed: completed,
       place: place.value,
     });
     updateList(newList);
@@ -48,14 +52,14 @@ export const AppRoutes = () => {
     // Muda apenas o done do item clicado
     const newList = list.items.map((listItem) => {
       if (listItem.id === todo.id) {
-        return { ...listItem, done: !todo.done };
+        return { ...listItem, completed: !todo.completed };
       }
 
       return listItem;
     });
 
     // Recebe somente a prop done de todos os itens da lista
-    const checks = newList.map((item) => item.done);
+    const checks = newList.map((item) => item.completed);
 
     let allEqual: boolean = true;
 
@@ -68,9 +72,9 @@ export const AppRoutes = () => {
       }
     }
 
-    if (allEqual && newList[0].done === true) {
+    if (allEqual && newList[0].completed === true) {
       updateList({ completed: true, items: newList });
-    } else if (allEqual && newList[0].done === false) {
+    } else if (allEqual && newList[0].completed === false) {
       updateList({ completed: false, items: newList });
     } else if (!allEqual) {
       updateList({ completed: false, items: newList });

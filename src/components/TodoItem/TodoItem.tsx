@@ -17,7 +17,7 @@ const TodoItem = ({ item, toggleTodo, placeToString }: TodoItemProps) => {
         type='checkbox'
         id={`item_${item.id}`}
         onChange={() => toggleTodo(item)}
-        checked={item.done}
+        checked={item.completed}
       />
 
       <label onClick={() => navigate('/home/todo/' + item.id)}>
