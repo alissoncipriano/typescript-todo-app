@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { places } from '../../commons/types';
+import { List, places } from '../../commons/types';
 import CreatableSelect from 'react-select/creatable';
 import { StyledAddTask } from './styles';
 import { useNavigate } from 'react-router-dom';
 
 interface AddTaskProps {
-  addTask: (text: string, place: string, done: boolean) => void;
+  addTask: (text: string, place: string, done: boolean, list: List) => List;
+  list: List;
 }
 
-export default function AddTask({ addTask }: AddTaskProps) {
+export default function AddTask({ addTask, list }: AddTaskProps) {
   const [selected, setSelected] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [local, setLocal] = useState<string>('');
@@ -38,7 +39,7 @@ export default function AddTask({ addTask }: AddTaskProps) {
 
   const handleTaskAdd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addTask(name, local, checked);
+    addTask(name, local, checked, list);
     navigate('/home');
   };
 

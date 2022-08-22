@@ -1,52 +1,18 @@
 import { StyledToDo } from './styles';
 import { TodoItem } from '../TodoItem/TodoItem';
-import { useEffect } from 'react';
-import { Todo, CompletedTodo, List } from '../../commons/types';
+import { Todo, List } from '../../commons/types';
 import { ThreeDots } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
+import { checkAll, placeToString, uncheckAll } from '..';
 
 interface ToDoProps {
   list: List;
-  updateList: (newList: List) => void;
-  fetchToDos: () => void;
+  updateList: (list: List) => void;
   toggleTodo: (todo: Todo) => void;
 }
 
-export default function ToDo({
-  list,
-  updateList,
-  fetchToDos,
-  toggleTodo,
-}: ToDoProps) {
+export default function ToDo({ list, updateList, toggleTodo }: ToDoProps) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchToDos();
-  }, []);
-
-  function checkAll(todos: readonly Todo[]): CompletedTodo[] {
-    return todos.map((todo) => ({
-      ...todo,
-      done: true,
-    }));
-  }
-
-  function uncheckAll(todos: readonly Todo[]): Todo[] {
-    return todos.map((todo) => ({
-      ...todo,
-      done: false,
-    }));
-  }
-
-  function placeToString(place: string): string {
-    if (place === 'home') {
-      return '🏡 Home';
-    } else if (place === 'work') {
-      return '💻 Work';
-    } else {
-      return '📌 ' + place;
-    }
-  }
 
   return (
     <StyledToDo className={`${list.items.length === 0 && 'loading'}`}>
@@ -76,8 +42,9 @@ export default function ToDo({
                   })
             }
           >
-            {list.completed && 'Marcar todas como incompletas'}
-            {!list.completed && 'Marcar todas como completas'}
+            {!list.completed
+              ? 'Marcar todas como completas'
+              : 'Marcar todas como incompletas'}
           </button>
         </>
       ) : (

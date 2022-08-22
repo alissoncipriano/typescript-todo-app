@@ -7,7 +7,7 @@ export interface Todo {
 }
 
 export type CompletedTodo = Todo & {
-  readonly done: true;
+  readonly completed: true;
 };
 
 export interface List {
